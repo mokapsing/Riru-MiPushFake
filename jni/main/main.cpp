@@ -26,11 +26,27 @@
 static char package_name[256];
 static int uid;
 static int enable_hook;
-static std::vector<std::string> blackList = {"com.google.android",
-                                            "de.robv.android.xposed.installer",
-                                            "com.xiaomi.xmsf",
-                                            "com.tencent.mm",
-                                            "top.trumeet.mipush"};
+//static std::string androidPkgNamePref = "android";
+static std::vector<std::string> blackList = {"android",
+                                             "com.bst",                             //Samsung app
+                                             "com.sec",                             //Samsung app
+                                             "com.sem",                             //Samsung app
+                                             "com.xda",                             //XDA app
+                                             "com.sgmc",                            //Samsung app
+                                             "com.dsi.ant",                         //Samsung app
+                                             "com.example",                         //QuickPay
+                                             "com.wsomacp",                         //Samsung app
+                                             "com.android",                         //android app
+                                             "com.samsung",                         //Samsung app
+                                             "soul.systemui",                       //Soul Rom app
+                                             "com.diotek.sec",                      //Samsung app
+                                             "com.soul.tweak",                      //Soul Rom app
+                                             "zmadll.systemui",                     //Soul Rom app
+                                             "com.xiaomi.xmsf",                     //Mipush itself
+                                             "top.trumeet.mipush",                  //Mipush itself
+                                             "com.topjohnwu.magisk",                //Magisk app
+                                             "com.enhance.gameservice",             //Samsung app
+                                             "de.robv.android.xposed.installer"};   //xposed app
 
 int is_app_need_hook(JNIEnv *env, jstring appDataDir) {
     if (!appDataDir)
@@ -50,13 +66,15 @@ int is_app_need_hook(JNIEnv *env, jstring appDataDir) {
     env->ReleaseStringUTFChars(appDataDir, app_data_dir);
 
     std::string pkgName = package_name;
+
     for (auto &s : blackList) {
-        if (pkgName.find(s) != std::string::npos) {
+//        if (pkgName.find(s) != std::string::npos) {
+//            return 0;
+//        }
+        if(std::strncmp(pkgName.c_str(), s.c_str(), s.length()) == 0){
             return 0;
         }
     }
-
-
     if (access(FAKE_CONFIGURATION_GLOBAL, F_OK) == 0) {
         return 1;
     }
