@@ -1,4 +1,4 @@
-# Riru-MiPushFakeModule
+# Riru-MiPushFakeModule4Samsung
 
 A module of [Riru](https://github.com/RikkaApps/Riru). Fake as a Xiaomi Device by hook system_property_get.
 
@@ -17,4 +17,4 @@ MiPushFramework with value map below
 
 also we add some prop inspired by [MiPushFake](https://github.com/Magisk-Modules-Repo/MiPushFake)
 
- 
+!!!add blacklists for samsung apks
